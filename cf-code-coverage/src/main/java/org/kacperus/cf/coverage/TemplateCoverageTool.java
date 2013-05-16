@@ -90,5 +90,16 @@ public class TemplateCoverageTool {
 		}
 		return toReturn;
 	}
+	
+	/**
+	 * Used to reset statistics for all templates. 
+	 */
+	public void resetStatistics(){
+		synchronized(pages){
+			for(TemplateStatistics page : pages){
+				page.reset();
+			}
+		}
+	}
 
 }

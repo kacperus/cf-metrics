@@ -1,10 +1,4 @@
-<cftry>
-	<cfset coverageTool = createObject("java","org.kacperus.cf.coverage.TemplateCoverageTool").getInstance()>
-<cfcatch type="any">
-	<p>Code Coverage Not Enabled</p>
-	<cfexit>
-</cfcatch>
-</cftry>
+<cfinclude template="coverage-check.cfm" >
 
 <cfif not structKeyExists(url,"templatePath")>
 	<p>No file has been specified</p>
@@ -18,6 +12,14 @@
 <head>
 	<title>CF Template code coverage</title>
 	<script type="text/javascript" src="http://bernii.github.com/gauge.js/dist/gauge.min.js"></script>
+	<script type="text/javascript">
+		function goBack(){
+			window.location = 'coverage-statistics.cfm';
+		}
+		function confirmReset(){
+			return window.confirm("Do you want to reset statistics for this template?");
+		}
+	</script>
 </head>
 <style type="text/css">
 	.file-content {
@@ -69,6 +71,14 @@
 		<canvas id="gauge_canvas"></canvas>
 		<span class="percentage">#pageCoverage.getVisitedPercentage()#% covered</span>
 	</p>
+	<hr/>
+		<form action="coverage-details-action.cfm" method="get">
+			<input type="hidden" name="templatePath" value="#url.templatePath#" />
+			
+			<input type="button" name="" value="back" onclick="goBack();"/>
+			<input type="submit" name="action" value="refresh" title="Refresh current page"/>
+			<input type="submit" name="action" value="reset" onclick="confirmReset();" title="Reset statistics for current template"/>
+		</form>
 	<hr/>
 	<dl class="file-content">
 		<cfloop file="#url.templatePath#" index="line">

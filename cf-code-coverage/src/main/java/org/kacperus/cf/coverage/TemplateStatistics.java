@@ -4,6 +4,10 @@ import java.util.BitSet;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Stores information about certain Cold Fusion template indicated by an absolute path.
+ * Provides information about covered and visited lines containing CF markup.   
+ */
 public class TemplateStatistics {
 	
 	private static Logger log = Logger.getLogger(TemplateStatistics.class);
@@ -70,6 +74,14 @@ public class TemplateStatistics {
 			// if template has got no lines to cover (e.g. HTML only) then it can be considered as 100% covered
 			return 100;
 		}
+	}
+	
+	/**
+	 * Visited lines information is being cleared.
+	 * Covered lines markers remain untouched.
+	 */
+	public synchronized void reset(){
+		visitedLines.clear();
 	}
 	
 	private int[] getSetBitIndexes(BitSet bs){

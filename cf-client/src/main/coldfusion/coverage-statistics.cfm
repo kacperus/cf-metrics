@@ -1,10 +1,4 @@
-<cftry>
-	<cfset coverageTool = createObject("java","org.kacperus.cf.coverage.TemplateCoverageTool").getInstance()>
-<cfcatch type="any">
-	<p>Code Coverage Not Enabled</p>
-	<cfexit>
-</cfcatch>
-</cftry>
+<cfinclude template="coverage-check.cfm" >
 
 <cfparam name="url.sortColumn" default="1">
 
@@ -42,6 +36,11 @@
 <head>
 	<title>CF Template code coverage</title>
 	<script type="text/javascript" src="http://bernii.github.com/gauge.js/dist/gauge.min.js"></script>
+	<script type="text/javascript">
+		function confirmReset(){
+			return window.confirm("Do you want to reset statistics for all templates?");
+		}
+	</script>
 </head>
 <style type="text/css">
 	.percentage {
@@ -60,6 +59,11 @@
 		<canvas id="gauge_canvas"></canvas>
 		<span class="percentage">#totalPercentage#% covered</span>
 	</p>
+	<hr/>
+		<form action="coverage-statistics-action.cfm" method="get">
+			<input type="submit" name="action" value="refresh" title="Refresh current page"/>
+			<input type="submit" name="action" value="reset" onclick="confirmReset();" title="Reset statistics for all templates" />
+		</form>
 	<hr/>
 	<div id="container">
 	
