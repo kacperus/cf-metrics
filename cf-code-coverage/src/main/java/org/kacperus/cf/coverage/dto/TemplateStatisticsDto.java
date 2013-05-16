@@ -1,15 +1,7 @@
 package org.kacperus.cf.coverage.dto;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.kacperus.cf.coverage.utils.TransformationTool;
 
-
-@XmlRootElement(name="templateStatistics")
-@XmlAccessorType(XmlAccessType.PROPERTY)
 public class TemplateStatisticsDto {
 	
 	private String templatePath;
@@ -48,7 +40,6 @@ public class TemplateStatisticsDto {
 		this.visitedLinesCount = visitedLinesCount;
 	}
 
-	@XmlTransient
 	public int[] getCoveredLines() {
 		return coveredLines;
 	}
@@ -56,7 +47,6 @@ public class TemplateStatisticsDto {
 		this.coveredLines = coveredLines;
 	}
 
-	@XmlTransient
 	public int[] getVisitedLines() {
 		return visitedLines;
 	}
