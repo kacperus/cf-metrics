@@ -1,15 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>org.kacperus</groupId>
-	<artifactId>cf-code-coverage</artifactId>
-	<version>1.0</version>
-	
 	<properties>
-		<cfusion_dir></cfusion_dir>
+		<cfusion.version></cfusion.version>
+		<cfusion.directory></cfusion.directory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
+	<groupId>org.kacperus</groupId>
+	<artifactId>cf-code-coverage</artifactId>
+	<version>1.0.1</version>
+		
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -94,7 +95,7 @@
 			<artifactId>cfusion</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${cfusion_dir}/lib/cfusion.jar</systemPath>
+			<systemPath>${cfusion.directory}/lib/cfusion.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -104,7 +105,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<version>1.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

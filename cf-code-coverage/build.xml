@@ -8,7 +8,7 @@
     <property name="target" location="${basedir}/target" />
 	<property name="src" location="${basedir}/src/main" />
 	<property file="${target}/_build.properties" />
-	<property name="cfusion_jar_location" location="${cfusion_dir}/lib/cfusion.jar"/>
+	<property name="cfusion_jar_location" location="${cfusion.directory}/lib/cfusion.jar"/>
 	
 	<loadfile property="mvn.class.path" srcFile="${target}/mvn.class.path"/>
 
@@ -18,7 +18,7 @@
 	</target>
 	
     <target name="weave-cfusion-lib">
-		<echo message="cfusion_dir=${cfusion_dir}" file="${target}/_build.properties" append="false" />
+		<echo message="cfusion.directory=${cfusion.directory}" file="${target}/_build.properties" append="false" />
 		<echo message="weaving ${cfusion_jar_location} with aspects" />
         <iajc source="1.5" inpath="${cfusion_jar_location}"
               xlintfile="${src}/config/Xlint.properties"
@@ -53,16 +53,16 @@
 	
 	<target name="apply-patch">
 		<if>
-			<available file="${cfusion_dir}/lib/updates" type="dir"/>
+			<available file="${cfusion.directory}/lib/updates" type="dir"/>
 			<then>
-				<copy todir="${cfusion_dir}/lib/updates" overwrite="true">
+				<copy todir="${cfusion.directory}/lib/updates" overwrite="true">
 					<fileset dir="${target}">
 						<include name="*.jar"/>
 					</fileset>
 				</copy>
 			</then>
 			<else>
-				<echo message="Directory does not exist: ${cfusion_dir}/lib/updates" />
+				<echo message="Directory does not exist: ${cfusion.directory}/lib/updates" />
 			</else>
 		</if>
 	</target>

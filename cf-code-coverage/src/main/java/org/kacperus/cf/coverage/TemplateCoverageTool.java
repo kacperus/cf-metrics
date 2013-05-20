@@ -40,7 +40,7 @@ public class TemplateCoverageTool {
 		synchronized(pages){
 			TemplateStatistics page = getCFPageCoverage(pagePath);
 			if( page != null ){
-				if( log.isTraceEnabled() ) log.trace("Line marked as covered for: " + pagePath);
+				if( log.isDebugEnabled() ) log.debug("Line marked as covered for: " + pagePath);
 				page.markLineAsCovered(lineNumber);
 			}
 		}
@@ -53,7 +53,7 @@ public class TemplateCoverageTool {
 		synchronized(pages){
 			TemplateStatistics page = getCFPageCoverage(pagePath);
 			if( page != null ){
-				if( log.isTraceEnabled() ) log.trace("Line marked as visited for: " + pagePath);
+				if( log.isDebugEnabled() ) log.debug("Line marked as visited for: " + pagePath);
 				page.markLineAsVisited(lineNumber);
 			}else{
 				if( log.isDebugEnabled() ) log.debug("Line was marked as visited but page was not recored before: " + pagePath);
@@ -63,7 +63,7 @@ public class TemplateCoverageTool {
 
 	public void preparePageCoverage(String pagePath){
 		synchronized(pages){
-			if( log.isTraceEnabled() )  log.trace("New CFPageCoverage prepared for: " + pagePath);
+			if( log.isDebugEnabled() )  log.debug("New CFPageCoverage prepared for: " + pagePath);
 			TemplateStatistics page = getCFPageCoverage(pagePath);
 			pages.remove(page);
 			pages.add(new TemplateStatistics(pagePath));
