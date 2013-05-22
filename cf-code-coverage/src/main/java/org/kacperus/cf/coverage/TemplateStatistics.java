@@ -1,5 +1,6 @@
 package org.kacperus.cf.coverage;
 
+import java.io.File;
 import java.util.BitSet;
 
 import org.apache.log4j.Logger;
@@ -15,12 +16,14 @@ public class TemplateStatistics {
 	private String templatePath;
 	private BitSet coveredLines = new BitSet();
 	private BitSet visitedLines = new BitSet();
+	private long lastModifiedTimestamp = -1;
 	
 	public TemplateStatistics(String templatePath){
 		if( templatePath == null ){
 			throw new IllegalArgumentException("Template path cannot be null");
 		}
-		this.templatePath = new String(templatePath);
+		this.templatePath = templatePath;
+		updateLastModifiedTimestamp();
 	}
 	
 	public String getTemplatePath(){
@@ -76,12 +79,31 @@ public class TemplateStatistics {
 		}
 	}
 	
+	public boolean isUpToDate() {
+		File template = new File(templatePath);
+		if( template.exists() ){
+			return lastModifiedTimestamp == template.lastModified();
+		}else{
+			return false;
+		}
+	}
+
+	public void updateLastModifiedTimestamp() {
+		File template = new File(templatePath);
+		if( template.exists() ){
+			lastModifiedTimestamp = template.lastModified();
+		}else{
+			lastModifiedTimestamp = -1;
+		}
+	}
+
 	/**
 	 * Visited lines information is being cleared.
 	 * Covered lines markers remain untouched.
 	 */
 	public synchronized void reset(){
 		visitedLines.clear();
+		updateLastModifiedTimestamp();
 	}
 	
 	private int[] getSetBitIndexes(BitSet bs){

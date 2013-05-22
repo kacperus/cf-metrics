@@ -2,8 +2,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<properties>
-		<cfusion.version></cfusion.version>
-		<cfusion.directory></cfusion.directory>
+		<cfusion.version>10</cfusion.version>
+		<cfusion.directory>e:/Programy/ColdFusion10/cfusion/</cfusion.directory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
