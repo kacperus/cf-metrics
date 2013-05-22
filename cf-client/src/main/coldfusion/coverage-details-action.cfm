@@ -11,6 +11,9 @@
 	<cfif url.action eq "reset">
 		<cfset pageCoverage.reset() >
 	</cfif>
+	<cfif url.action eq "timestamp">
+		<cfset pageCoverage.updateLastModifiedTimestamp() >
+	</cfif>
 	
 	<cflocation url="coverage-details.cfm?templatePath=#url.templatePath#" addToken="false" />
 </cfif>

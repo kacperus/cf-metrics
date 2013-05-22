@@ -67,9 +67,17 @@
 <body>
 <cfoutput>
 <cfif isDefined("pageCoverage")>
+	<cfset outOfSync = not pageCoverage.isUpToDate() >
+	<p>
+		#htmlCodeFormat(url.templatePath)#
+	</p>
 	<p>
 		<canvas id="gauge_canvas"></canvas>
-		<span class="percentage">#pageCoverage.getVisitedPercentage()#% covered</span>
+		<span class="percentage">#pageCoverage.getVisitedPercentage()#% covered
+			<cfif outOfSync >
+				(out of sync)
+			</cfif>
+		</span>
 	</p>
 	<hr/>
 		<form action="coverage-details-action.cfm" method="get">
@@ -78,6 +86,10 @@
 			<input type="button" name="" value="back" onclick="goBack();"/>
 			<input type="submit" name="action" value="refresh" title="Refresh current page"/>
 			<input type="submit" name="action" value="reset" onclick="confirmReset();" title="Reset statistics for current template"/>
+			<cfif outOfSync >
+			|
+				<input type="submit" name="action" value="timestamp" title="Update coverage timestamp"/>
+			</cfif>
 		</form>
 	<hr/>
 	<dl class="file-content">
