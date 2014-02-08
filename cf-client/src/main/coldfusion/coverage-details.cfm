@@ -11,7 +11,6 @@
 <html>
 <head>
 	<title>CF Template code coverage</title>
-	<script type="text/javascript" src="http://bernii.github.com/gauge.js/dist/gauge.min.js"></script>
 	<script type="text/javascript">
 		function goBack(){
 			window.location = 'coverage-statistics.cfm';
@@ -22,43 +21,47 @@
 	</script>
 </head>
 <style type="text/css">
-	.file-content {
-		font-family: verdana;
+	body {
+		font-family: Lucida Console;
 		font-size: 12px;
 	}
-	
+	.file-content {
+		font-size: 12px;
+	}
+	.line {
+		font-family: Lucida Console;
+		margin: 0px;
+		height: 20px;
+		line-height: 20px;
+	}
 	.line .lineNumber {
 		float: left;
-		height: 20px;
-		width: 32px;
+		padding-left: 5px;
+		width: 35px;
 	}
 	.line .text {
-		height: 20px;
 	}
-	
 	.visited .lineNumber {
-		background-color: #80FF50;
+		background-color: #aaeba1;
 	}
 	.visited .text {
-		background-color: #B0FFC0;
+		background-color: #d0f4cc;
 	}
-	
 	.covered .lineNumber {
-		background-color: #707070;
+		background-color: #a0a0a0;
 		color: #FFFFFF;
 	}
 	.covered .text {
-		background-color: #C0C0C0;
+		background-color: #d2d2d2;
 	}
 	pre {
+		font-family: Lucida Console;
 		margin: 0px;
-		padding-top: 3px;
+
 	}
-	
 	.percentage {
 		font-size: 30px;
 	}
-	
 	#gauge_canvas {
 		width: 200px;
 		height: 100px;
@@ -72,12 +75,7 @@
 		#htmlCodeFormat(url.templatePath)#
 	</p>
 	<p>
-		<canvas id="gauge_canvas"></canvas>
-		<span class="percentage">#pageCoverage.getVisitedPercentage()#% covered
-			<cfif outOfSync >
-				(out of sync)
-			</cfif>
-		</span>
+		<span class="percentage">#pageCoverage.getVisitedPercentage()#%</span> of covered visited.<cfif outOfSync >(out of sync)</cfif>
 	</p>
 	<hr/>
 		<form action="coverage-details-action.cfm" method="get">
@@ -108,29 +106,6 @@
 			<cfset lineNo++ >
 		</cfloop>
 	</dl>
-	
-	<script type="text/javascript">
-		var opts = {
-  			lines: 12, // The number of lines to draw
-	  		angle: 0, // The length of each line
-			lineWidth: 0.34, // The line thickness
-			pointer: {
-			    length: 0.86, // The radius of the inner circle
-			    strokeWidth: 0.053, // The rotation offset
-			    color: '##000000' // Fill color
-			},
-			colorStart: '##ff0000',   // Colors
-			colorStop: '##00ff00',    // just experiment with them
-			strokeColor: '##E0E0E0',   // to see which ones work best for you
-			generateGradient: true
-		};
-		var target = document.getElementById('gauge_canvas'); // your canvas element
-		var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-		gauge.maxValue = 100; // set max gauge value
-		gauge.animationSpeed = 32; // set animation speed (32 is default value)
-		gauge.set(#pageCoverage.getVisitedPercentage()#); // set actual value
-	</script>
-	
 <cfelse>
 	No statistics available
 </cfif>
