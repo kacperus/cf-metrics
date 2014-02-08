@@ -1,6 +1,11 @@
 <cfinclude template="coverage-check.cfm" >
 
 <cfparam name="url.sortColumn" default="1">
+<cfparam name="url.order" default="ASC">
+<cfset opositeOrder = "DESC">
+<cfif url.order eq "DESC">
+	<cfset opositeOrder = "ASC">
+</cfif>
 
 <cfset arrCFPageCoverages = coverageTool.listCFPageCoverages()>
 <cfset totalLinesCovered = 0 >
@@ -23,7 +28,7 @@
 <cfquery name="qPages" dbtype="query">
 	SELECT *
 	FROM qPages
-	ORDER BY <cfqueryparam cfsqltype="cf_sql_integer" value="#url.sortColumn#">
+	ORDER BY <cfqueryparam cfsqltype="cf_sql_integer" value="#url.sortColumn#"> <cfif url.order eq "desc">DESC</cfif>
 </cfquery>
 
 <cfif totalLinesCovered gt 0 >
@@ -68,11 +73,11 @@
 	<hr/>
 	<div class="container">
 		<cftable query="qPages" htmltable="true" colHeaders="true">
-			<cfcol header='<a href="?sortColumn=1">File Name [-]</a>' text='<a href="coverage-details.cfm?templatePath=#qPages.filepath#" title="#qPages.filepath#">#qPages.filename#</a>'>
-			<cfcol header='<a href="?sortColumn=2">Lines Covered [##]</a>' text="#qPages.linesCovered#">
-			<cfcol header='<a href="?sortColumn=3">Lines Visited [##]</a>' text="#qPages.linesVisited#">
-			<cfcol header='<a href="?sortColumn=4">Code Coverage [%]</a>' text="#qPages.percentage#">
-			<cfcol header='<a href="?sortColumn=5">Path [-]</a>' text="#qPages.filepath#">
+			<cfcol header='<a href="?sortColumn=1&order=#opositeOrder#">File Name [-]</a>' text='<a href="coverage-details.cfm?templatePath=#qPages.filepath#" title="#qPages.filepath#">#qPages.filename#</a>'>
+			<cfcol header='<a href="?sortColumn=2&order=#opositeOrder#">Lines Covered [##]</a>' text="#qPages.linesCovered#">
+			<cfcol header='<a href="?sortColumn=3&order=#opositeOrder#">Lines Visited [##]</a>' text="#qPages.linesVisited#">
+			<cfcol header='<a href="?sortColumn=4&order=#opositeOrder#">Code Coverage [%]</a>' text="#qPages.percentage#">
+			<cfcol header='<a href="?sortColumn=5&order=#opositeOrder#">Path [-]</a>' text="#qPages.filepath#">
 		</cftable>
 	</div>
 </cfoutput>
