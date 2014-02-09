@@ -39,7 +39,7 @@
 
 <html>
 <head>
-	<title>CF Template code coverage</title>
+	<title>CF Metrics - code coverage</title>
 	<script type="text/javascript">
 		function confirmReset(){
 			return window.confirm("Do you want to reset statistics for all templates?");
@@ -48,11 +48,18 @@
 </head>
 <style type="text/css">
 	body, p {
+		margin: 0px;
 		font-family: Lucida Console;
 		font-size: 12px;
 	}
+	.header {
+		padding: 5px;
+		background-color: #d0d0d0;
+		border-bottom: 2px solid black;
+	}
 	.container table {
 		font-size: 12px;
+		margin: 5px;
 	}
 	.percentage {
 		font-size: 30px;
@@ -62,15 +69,15 @@
 <body>
 	
 <cfoutput>
-	<p>
-		<span class="percentage">#totalPercentage#%</span> of all covered lines visited.
-	</p>
-	<hr/>
+	<div class="header">
+		<p>
+			<span class="percentage">#totalPercentage#%</span> total coverage
+		</p>
 		<form action="coverage-statistics-action.cfm" method="get">
 			<input type="submit" name="action" value="refresh" title="Refresh current page"/>
 			<input type="submit" name="action" value="reset" onclick="confirmReset();" title="Reset statistics for all templates" />
 		</form>
-	<hr/>
+	</div>
 	<div class="container">
 		<cftable query="qPages" htmltable="true" colHeaders="true">
 			<cfcol header='<a href="?sortColumn=1&order=#opositeOrder#">File Name [-]</a>' text='<a href="coverage-details.cfm?templatePath=#qPages.filepath#" title="#qPages.filepath#">#qPages.filename#</a>'>
