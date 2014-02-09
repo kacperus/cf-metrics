@@ -28,8 +28,8 @@
 	}
 	.header {
 		padding: 5px;
-		background-color: #d0d0d0;
-		border-bottom: 2px solid black;
+		background-color: #c2e1f4;
+		border-bottom: 2px solid #90c8ec;
 	}
 	.file-content {
 		font-size: 12px;

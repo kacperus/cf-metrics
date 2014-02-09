@@ -47,15 +47,15 @@
 	</script>
 </head>
 <style type="text/css">
-	body, p {
+	body {
 		margin: 0px;
 		font-family: Lucida Console;
 		font-size: 12px;
 	}
 	.header {
 		padding: 5px;
-		background-color: #d0d0d0;
-		border-bottom: 2px solid black;
+		background-color: #c2e1f4;
+		border-bottom: 2px solid #90c8ec;
 	}
 	.container table {
 		font-size: 12px;
