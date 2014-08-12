@@ -1,70 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="weave coldfusion script" default="weave-cfusion-lib" xmlns:artifact="urn:maven-artifact-ant">
+<project name="weave coldfusion script" default="weave-cfusion-lib" >
     <taskdef resource="net/sf/antcontrib/antlib.xml" />
-    <taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties" />
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
 
-	<property name="src" location="${basedir}/src/main" />
     <property name="target" location="${basedir}/target" />
-	<property name="src" location="${basedir}/src/main" />
-	<property file="${target}/_build.properties" />
 	<property name="cfusion_jar_location" location="${cfusion.directory}/lib/cfusion.jar"/>
 	
-	<loadfile property="mvn.class.path" srcFile="${target}/mvn.class.path"/>
-
-	<target name="prepare-coldfusion-patch">
-		<antcall target="weave-cfusion-lib" />
-		<antcall target="prepare-patch" />
-	</target>
-	
-    <target name="weave-cfusion-lib">
-		<echo message="cfusion.directory=${cfusion.directory}" file="${target}/_build.properties" append="false" />
-		<echo message="weaving ${cfusion_jar_location} with aspects" />
-        <iajc source="1.5" inpath="${cfusion_jar_location}"
-              xlintfile="${src}/config/Xlint.properties"
-			  destDir="${target}/_cfusion_aspected"
-              debug="false"
-              verbose="false">
-			<classpath>
-				<pathelement path="${mvn.class.path}" />
-				<pathelement path="${target}/classes" />
-			</classpath>
-            <sourceroots>
-                <pathelement location="${src}/aspect"/>
-            </sourceroots>
-        </iajc>
+    <target name="prepare-cf-patch">
+        <echo message="Preparing CFusion Patch JAR..." />
+        <if>
+            <available file="${target}/cfusion-original-classes" type="dir"/>
+            <else>
+                <echo message="Expanding cfusion.jar" />
+                <unzip src="${cfusion_jar_location}" dest="${target}/cfusion-original-classes" />
+            </else>
+        </if>
+        <copy todir="${target}/classes" overwrite="true">
+            <fileset dir="${target}/cfusion-weaven-classes" includes="**/*.class" >
+                <different targetDir="${target}/cfusion-original-classes" />
+            </fileset>
+        </copy>
     </target>
 	
-	<target name="prepare-patch">
-		<echo message="Preparing CFusion Patch JAR..." />
-		<if>
-			<available file="${target}/_cfusion_classes" type="dir"/>
-		<else>
-				<echo message="Expanding cfusion.jar" />
-				<unzip src="${cfusion_jar_location}" dest="${target}/_cfusion_classes" />
-		</else>
-		</if>
-		<copy todir="${target}/classes" overwrite="true">
-			<fileset dir="${target}/_cfusion_aspected" includes="**/*.class" >
-				<different targetDir="${target}/_cfusion_classes" />
-			</fileset>
-		</copy>
-	</target>
-	
-	<target name="apply-patch">
-		<if>
-			<available file="${cfusion.directory}/lib/updates" type="dir"/>
-			<then>
-				<copy todir="${cfusion.directory}/lib/updates" overwrite="true">
-					<fileset dir="${target}">
-						<include name="*.jar"/>
-					</fileset>
-				</copy>
-			</then>
-			<else>
-				<echo message="Directory does not exist: ${cfusion.directory}/lib/updates" />
-			</else>
-		</if>
-	</target>
-
 </project>

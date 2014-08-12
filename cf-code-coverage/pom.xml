@@ -2,14 +2,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<properties>
-		<cfusion.version>10</cfusion.version>
-		<cfusion.directory>e:/Programy/ColdFusion10/cfusion/</cfusion.directory>
+		<cfusion.version>11</cfusion.version>
+		<cfusion.directory>/Volumes/Sources/git/cf-metrics</cfusion.directory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <aspectj.version>1.7.3</aspectj.version>
+        <java.version>7</java.version>
 	</properties>
 	
 	<groupId>org.kacperus</groupId>
 	<artifactId>cf-code-coverage</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.1-cf${cfusion.version}-j${java.version}</version>
 		
 	<build>
 		<pluginManagement>
@@ -18,22 +20,18 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<debug>true</debug>
 					<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>
 					<version>1.7</version>
 					<dependencies>
-						<dependency>
-							<groupId>org.aspectj</groupId>
-							<artifactId>aspectjtools</artifactId>
-							<version>1.6.11</version>
-						</dependency>
 						<dependency>
 							<groupId>ant-contrib</groupId>
 							<artifactId>ant-contrib</artifactId>
@@ -47,45 +45,72 @@
 						</dependency>
 					</dependencies>
 				</plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>aspectj-maven-plugin</artifactId>
+                    <version>1.5</version>
+                    <configuration>
+                        <complianceLevel>1.7</complianceLevel>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <Xlintfile>src/main/config/Xlint.properties</Xlintfile>
+                        <outputDirectory>target/cfusion-weaven-classes</outputDirectory>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
 			</plugins>
 		</pluginManagement>
+
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.4</version>
-				<executions>
-					<execution>
-						<id>build-classpath</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>build-classpath</goal>
-						</goals>
-						<configuration>
-							<outputFile>target/mvn.class.path</outputFile>
-							<regenerateFile>true</regenerateFile>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>call-ant-to-weaven</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<ant target="prepare-coldfusion-patch" />
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <weaveDependencies>
+                        <weaveDependency>
+                            <groupId>com.adobe</groupId>
+                            <artifactId>cfusion</artifactId>
+                        </weaveDependency>
+                    </weaveDependencies>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>call-ant-to-weaven</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <ant target="prepare-cf-patch" />
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
 		</plugins>
 	</build>
 	
@@ -113,16 +138,17 @@
 			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjtools</artifactId>
-			<version>1.6.11</version>
+			<version>${aspectj.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>1.6.11</version>
-		</dependency>
+
 	</dependencies>
 		
 </project>
