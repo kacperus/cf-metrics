@@ -3,7 +3,7 @@
 	
 	<properties>
 		<cfusion.version>11</cfusion.version>
-		<cfusion.directory>/Volumes/Sources/git/cf-metrics</cfusion.directory>
+		<cfusion.jar.location>/Volumes/Sources/git/cf-metrics/lib/cfusion.jar</cfusion.jar.location>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.7.3</aspectj.version>
         <java.version>7</java.version>
@@ -11,7 +11,7 @@
 	
 	<groupId>org.kacperus</groupId>
 	<artifactId>cf-code-coverage</artifactId>
-	<version>1.0.1-cf${cfusion.version}-j${java.version}</version>
+	<version>1.0.1-cf${cfusion.version}j${java.version}</version>
 		
 	<build>
 		<pluginManagement>
@@ -120,7 +120,7 @@
 			<artifactId>cfusion</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${cfusion.directory}/lib/cfusion.jar</systemPath>
+			<systemPath>${cfusion.jar.location}</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>

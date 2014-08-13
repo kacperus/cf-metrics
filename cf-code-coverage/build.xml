@@ -4,15 +4,14 @@
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
 
     <property name="target" location="${basedir}/target" />
-	<property name="cfusion_jar_location" location="${cfusion.directory}/lib/cfusion.jar"/>
-	
+
     <target name="prepare-cf-patch">
         <echo message="Preparing CFusion Patch JAR..." />
         <if>
             <available file="${target}/cfusion-original-classes" type="dir"/>
             <else>
                 <echo message="Expanding cfusion.jar" />
-                <unzip src="${cfusion_jar_location}" dest="${target}/cfusion-original-classes" />
+                <unzip src="${cfusion.jar.location}" dest="${target}/cfusion-original-classes" />
             </else>
         </if>
         <copy todir="${target}/classes" overwrite="true">
