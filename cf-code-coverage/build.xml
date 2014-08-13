@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="weave coldfusion script" default="weave-cfusion-lib" >
+<project name="weave coldfusion script" default="prepare-cf-patch" >
     <taskdef resource="net/sf/antcontrib/antlib.xml" />
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
 
