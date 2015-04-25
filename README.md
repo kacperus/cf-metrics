@@ -16,4 +16,16 @@ The aim of this project is to provide a set of tools which can be used to measur
 # How does this work?
 Code Coverage statistics are enabled by deploying a single JAR file into the /lib/updates directory of your Cold Fusion server as any other Adobe(R) patch file.
 
+# Example Visualization
+Example visualization of the gathered code coverage statistics is present below.
+
+## General overview of code coverage client
+![alt tag](http://wiki.cf-metrics.googlecode.com/git/images/coverage-visualization-global.png)
+
+## Details code coverage statistics for a particular file
+![alt tag](http://wiki.cf-metrics.googlecode.com/git/images/coverage-visualization-file.png)
+
+## Code coverage of cfscript block
+![alt tag](http://wiki.cf-metrics.googlecode.com/git/images/coverage-visualization-cfscript.png)
+
 Once a file is requested and processed by a Cold Fusion engine Code Coverage statistics are recorded. They can be accessed later on via singleton instance of a TemplateCoverageTool (statistics collector class). Any desired visualization can be applied to it afterwards. A default ColdFusion statistics viewer (written in CFML) is provided as a side project.
