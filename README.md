@@ -6,7 +6,7 @@ The aim of this project was to provide a set of tools which can be used to measu
 
 # Features
 - CFC components and CFM templates handled
-- Cold Fusion 8, 9, 10, 11 supported
+- ColdFusion 8, 9, 10, 11 supported
 - *cfscript* tag with it's content supported
 - small footprint on the template execution
 - generated JAVA classes size increased by 5% (on average)
@@ -27,7 +27,7 @@ cf-metrics consists of two modules:
 ### Building the project
 1. edit the pom.xml of cf-code-coverage module
 2. set the "cfusion.version" property to a proper value (e.g. 11)
-3. set the "cfusion.jar.location" property (must point to a cfusion.jar location of your local Cold Fusion distribution)
+3. set the "cfusion.jar.location" property (must point to a cfusion.jar location of your local ColdFusion distribution)
 4. set the "java.version" and specify Java version to use for compilation (e.g. 7)
 5. build the maven project `mvn clean package`
 
@@ -42,7 +42,7 @@ Be aware that if you're using **"Trusted cache"** or **"Save class files"** then
 Cleaning the compiled templates cache can be also done manually by removing all content from {cf_server.dir}/wwwroot/WEB-INF/cfclasses directory.
 
 ### CF statistics viewer
-The tool comes with simple GUI written in Cold Fusion. I admit it's not pretty but can be used right away to view your code coverage statistics from the same server it's hosted on. The files are present in the "cf-client" project module. You can copy them to a directory of our choice (of course visible to the CF server).
+The tool comes with simple GUI written in ColdFusion. I admit it's not pretty but can be used right away to view your code coverage statistics from the same server it's hosted on. The files are present in the "cf-client" project module. You can copy them to a directory of our choice (of course visible to the CF server).
 
 # Example Visualization
 Example visualization of the gathered code coverage statistics is present below.
@@ -56,4 +56,4 @@ Example visualization of the gathered code coverage statistics is present below.
 ## Code coverage of cfscript block
 ![alt tag](http://wiki.cf-metrics.googlecode.com/git/images/coverage-visualization-cfscript.png)
 
-Once a file is requested and processed by a Cold Fusion engine Code Coverage statistics are recorded. They can be accessed later on via singleton instance of a TemplateCoverageTool (statistics collector class). Any desired visualization can be applied to it afterwards. A default ColdFusion statistics viewer (written in CFML) is provided as a side project.
+Once a file is requested and processed by a ColdFusion engine Code Coverage statistics are recorded. They can be accessed later on via singleton instance of a TemplateCoverageTool (statistics collector class). Any desired visualization can be applied to it afterwards. A default ColdFusion statistics viewer (written in CFML) is provided as a side project.
