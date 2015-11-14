@@ -57,3 +57,16 @@ Example visualization of the gathered code coverage statistics is present below.
 ![alt tag](http://wiki.cf-metrics.googlecode.com/git/images/coverage-visualization-cfscript.png)
 
 Once a file is requested and processed by a ColdFusion engine Code Coverage statistics are recorded. They can be accessed later on via singleton instance of a TemplateCoverageTool (statistics collector class). Any desired visualization can be applied to it afterwards. A default ColdFusion statistics viewer (written in CFML) is provided as a side project.
+
+#FAQ
+## What is the Aspecj used for?
+Aspectj are used to modify some of the cfusion.jar classes and inject additional code into them.
+
+## Class not found exception: org.aspectj.lang.NoAspectBoundException
+The tool relies on AspectJ and requires the aspectjrt.jar to be present on the CF server class path. It's not included in the patch jar file and has to be provided separately but is a dependency of maven project.
+
+## Is it safe to use it on production environments?
+Well, it shouldn't cause any troubles but it's not recommended. There is no guarantee it won't brake something as my intention was to use it on staging and QC environments for testing purposes only.
+
+## Plans for the future?
+I would love to create an Eclipse plugin which would show live code coverage of your local or remote server. Any contribution is more than welcome here! :)
