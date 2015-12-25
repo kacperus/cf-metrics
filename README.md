@@ -4,6 +4,8 @@ If you're looking for an easy-to-use ColdFusion code-coverage tool for your CFM 
 
 The aim of this project was to provide a set of tools which can be used to measure various statistics for your ColdFusion application. In the initial version a code coverage possibilities were introduced. Currently, mostly due to lack of time, not further development takes place. Code coverate feature is fully functional and can be used with multiple ColdFusion versions.
 
+
+
 # Features
 - CFC components and CFM templates handled
 - ColdFusion 8, 9, 10, 11 supported
@@ -12,6 +14,9 @@ The aim of this project was to provide a set of tools which can be used to measu
 - generated JAVA classes size increased by 5% (on average)
 - no manual code instrumentation required
 - easy to deploy and use (single JAR deployed as a ColdFusion patch)
+
+## Note (compability)
+Unfortunatelly cf-metrics currently do not work with ColdFusion 11 with HotFix 4 or above.
 
 # How does this work?
 Code Coverage statistics are enabled by deploying a single JAR file into the {cf_fusion.dir}/lib/updates directory of your ColdFusion server as any other Adobe ColdFusion patch file.
