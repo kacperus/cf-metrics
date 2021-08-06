@@ -16,7 +16,9 @@ The aim of this project was to provide a set of tools which can be used to measu
 - easy to deploy and use (single JAR deployed as a ColdFusion patch)
 
 ## Note (compability)
-Unfortunatelly cf-metrics currently do not work with ColdFusion 11 with HotFix 4 or above.
+~~Unfortunatelly cf-metrics currently do not work with ColdFusion 11 with HotFix 4 or above.~~
+
+For ColdFusion 11 or 18 compatibility issues please refer to this thrread: https://github.com/kacperus/cf-metrics/issues/4#issuecomment-894055657
 
 # How does this work?
 Code Coverage statistics are enabled by deploying a single JAR file into the {cf_fusion.dir}/lib/updates directory of your ColdFusion server as any other Adobe ColdFusion patch file.
